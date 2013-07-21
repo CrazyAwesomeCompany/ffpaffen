@@ -1,0 +1,19 @@
+{
+    "name": "cac/ffpaffen",
+    "description": "Kunnen we alweer ff paffen",
+    "autoload": {
+        "psr-0": {
+            "CAC": "src/"
+        }
+    },
+    "require": {
+        "silex/silex": "1.*",
+        "twig/twig": ">=1.8,<2.0-dev"
+    },
+    "authors": [
+        {
+            "name": "Nick de Groot",
+            "email": "nick@crazyawesomecompany.com"
+        }
+    ]
+}

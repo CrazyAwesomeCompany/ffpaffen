@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+        {% block head %}
+        <meta charset="utf-8">
+        <title>{% block title %}Kunnen we ff paffen?{% endblock %}</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{ app.request.baseUrl }}/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ app.request.baseUrl }}/css/style.css">
+        <link rel="stylesheet" type="text/css" href="{{ app.request.baseUrl }}/css/bootstrap-responsive.min.css">
+        {% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+
+
+    {% block body %}
+    <div class="container-narrow">
+
+        {% block header %}
+        <div class="masthead">
+        <h3 class="muted">ff paffen?</h3>
+      </div>
+        {% endblock %}
+
+        {% block main %}
+        <div class="jumbotron">
+        <h1>Kunnen we even buiten roken in {{ location.city }}</h1>
+        <p class="lead">Is het weer mooi genoeg om even te gaan roken?</p>
+        {% if ffpaffen %}
+        <p class="btn btn-large btn-success">JA, natuurlijk!</p>
+        {% else %}
+        <p class="btn btn-large btn-inverse">Nee nu ff niet</p>
+        {% endif %}
+      </div>
+
+      <hr>
+        {% endblock %}
+
+        {% block footer %}
+        <div class="footer">
+        <p>&copy; Crazy Awesome Company 2013</p>
+      </div>
+        {% endblock %}
+    </div>
+    {% endblock %}
+
+    {% block javascripts %}
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="{{ app.request.baseUrl }}/js/bootstrap.min.js"></script>
+    {% endblock %}
+    </body>
+</html>
