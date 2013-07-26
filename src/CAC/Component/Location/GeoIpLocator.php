@@ -3,16 +3,23 @@
 namespace CAC\Component\Location;
 
 
+use CAC\Component\Location\GeoIpAdapter\GeoIpAdapterInterface;
+
 class GeoIpLocator
 {
-    private $api = 'http://freegeoip.net/json';
+    /**
+     *
+     * @var GeoIpAdapterInterface
+     */
+    private $adapter;
 
-
-    public function get($hostname)
+    public function __construct(GeoIpAdapterInterface $adapter)
     {
-        $data = file_get_contents($this->api . '/' . $hostname);
-        $data = json_decode($data);
+        $this->adapter = $adapter;
+    }
 
-        return $data;
+    public function find($ip)
+    {
+        return $this->adapter->findByIp($ip);
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use CAC\Component\Location\GeoIpAdapter\NetImpactAdapter;
+
+use CAC\Component\Location\GeoIpAdapter\FreeGeoIpAdapter;
 use CAC\Component\Location\GeoIpLocator;
 
 use CAC\Component\Weather\RainForecast;
@@ -12,9 +15,13 @@ $app->register(new \Silex\Provider\TwigServiceProvider(), array('twig.path' => _
 
 
 $app->get('/', function() use ($app) {
-    $locator = new GeoIpLocator();
+    $locator = new GeoIpLocator(new NetImpactAdapter());
 
-    $location = $locator->get($_SERVER['REMOTE_ADDR']);
+    //$ip = '83.232.96.217';
+    //$ip = '127.0.0.1';
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $location = $locator->find($ip);
+
     if (!$location->latitude || !$location->longitude) {
         $location->latitude = 52;
         $location->longitude = 4;
