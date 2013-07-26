@@ -2,15 +2,38 @@
 
 namespace CAC\Component\Location\GeoIpAdapter;
 
-
 use CAC\Component\Location\Location;
 
+/**
+ * The NetImpact GeoIp service Adapter
+ *
+ */
 class NetImpactAdapter implements GeoIpAdapterInterface
 {
+    /**
+     * NetImpact API Url
+     *
+     * @var string
+     */
     private $api = 'http://api.netimpact.com/qv1.php';
 
-    private $key = 'g5UTvftII9uZ9kjr';
+    /**
+     * NetImpact API Key
+     *
+     * @var string
+     */
+    private $key;
 
+
+    public function __construct($apiKey)
+    {
+        $this->key = $apiKey;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \CAC\Component\Location\GeoIpAdapter\GeoIpAdapterInterface::findByIp()
+     */
     public function findByIp($ip)
     {
         $payload = array(

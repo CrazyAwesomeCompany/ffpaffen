@@ -15,7 +15,7 @@ $app->register(new \Silex\Provider\TwigServiceProvider(), array('twig.path' => _
 
 
 $app->get('/', function() use ($app) {
-    $locator = new GeoIpLocator(new NetImpactAdapter());
+    $locator = new GeoIpLocator(new NetImpactAdapter('g5UTvftII9uZ9kjr'));
 
     //$ip = '83.232.96.217';
     //$ip = '127.0.0.1';
