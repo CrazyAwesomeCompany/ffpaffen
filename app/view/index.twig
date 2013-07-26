@@ -27,7 +27,7 @@
 
         {% block main %}
         <div class="jumbotron">
-        <h1>Kunnen we even buiten roken in {{ location.city }}</h1>
+        <h1>Kunnen we even buiten roken in {{ location.getCity() }}</h1>
         <p class="lead">Is het weer mooi genoeg om even te gaan roken?</p>
         {% if ffpaffen %}
         <p class="btn btn-large btn-success">JA, natuurlijk!</p>

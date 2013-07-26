@@ -48,9 +48,10 @@ class NetImpactAdapter implements GeoIpAdapterInterface
         $data = json_decode($data);
 
         $location = new Location;
-        $location->city = $data[0][0];
-        $location->latitude = $data[0][4];
-        $location->longitude = $data[0][5];
+        $location->setIp($ip);
+        $location->setCity($data[0][0]);
+        $location->setLatitude($data[0][4]);
+        $location->setLongitude($data[0][5]);
 
         return $location;
     }

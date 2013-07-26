@@ -22,15 +22,15 @@ $app->get('/', function() use ($app) {
     $ip = $_SERVER['REMOTE_ADDR'];
     $location = $locator->find($ip);
 
-    if (!$location->latitude || !$location->longitude) {
-        $location->latitude = 52;
-        $location->longitude = 4;
-        $location->city = "Nederland";
+    if (!$location->getLatitude() || !$location->getLongitude()) {
+        $location->setLatitude(52);
+        $location->setLongitude(4);
+        $location->setCity("Nederland");
     }
 
     $forecast = new RainForecast();
 
-    $data = $forecast->get($location->latitude, $location->longitude);
+    $data = $forecast->get($location->getLatitude(), $location->getLongitude());
 
     $ffpaffen = true;
 
