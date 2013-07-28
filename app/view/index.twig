@@ -28,12 +28,12 @@
 
         {% block main %}
         <div class="jumbotron">
-        <h1>Kunnen we even buiten roken in {{ location.getCity() }}</h1>
+        <h1>Kunnen we even buiten roken in <span id="paffen-city">{{ location.getCity() }}</span></h1>
         <p class="lead">Is het weer mooi genoeg om even te gaan roken?</p>
         {% if ffpaffen %}
-        <p class="btn btn-large btn-success">JA, natuurlijk!</p>
+        <p id="paffen-btn" class="btn btn-large btn-success">JA, natuurlijk!</p>
         {% else %}
-        <p class="btn btn-large btn-inverse">Nee nu ff niet</p>
+        <p id="paffen-btn" class="btn btn-large btn-inverse">Nee nu ff niet</p>
         {% endif %}
             <div id="geoinfo">
                 <p id="geoinfoholder"></p>
@@ -53,13 +53,18 @@
     {% endblock %}
 
     {% block javascripts %}
+    <script>
+    var ffpaffenConfig = {"baseUrl": '{{ app.request.baseUrl }}'};
+    </script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="{{ app.request.baseUrl }}/js/script.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    
+
       ga('create', 'UA-26844240-3', 'ffpaffen.nl');
       ga('send', 'pageview');
 

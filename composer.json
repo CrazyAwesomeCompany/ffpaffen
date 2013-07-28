@@ -8,7 +8,9 @@
     },
     "require": {
         "silex/silex": "1.*",
-        "twig/twig": ">=1.8,<2.0-dev"
+        "twig/twig": ">=1.8,<2.0-dev",
+        "guzzle/guzzle": "3.*",
+        "guzzle/silex-provider": "1.*"
     },
     "authors": [
         {

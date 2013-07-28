@@ -9,6 +9,44 @@ function getLocation()
     }
 }
 
+function showLoader()
+{
+    var btnHolder = document.getElementById("paffen-btn");
+    btnHolder.innerHTML = "ff laden";
+}
+
+function setCityName(city)
+{
+    var cityHolder = document.getElementById("paffen-city");
+    cityHolder.innerHTML = city;
+}
+
+function codeLatLng(lat, lng) {
+    var geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(lat, lng);
+    geocoder.geocode({'latLng': latlng}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+                for (var i=0; i<results[0].address_components.length; i++) {
+                    for (var b=0;b<results[0].address_components[i].types.length;b++) {
+                        if (results[0].address_components[i].types[b] == "locality") {
+                            //this is the object you are looking for
+                            city= results[0].address_components[i];
+                            break;
+                        }
+                    }
+                }
+                //city data
+                setCityName(city.long_name);
+            } else {
+                alert("No results found");
+            }
+          } else {
+            alert("Geocoder failed due to: " + status);
+          }
+    });
+}
+
 //Property                  Description
 //coords.latitude           The latitude as a decimal number
 //coords.longitude          The longitude as a decimal number
@@ -22,6 +60,17 @@ function showPosition(position)
 {
     var latlon = position.coords.latitude + "," + position.coords.longitude;
 
+    codeLatLng(position.coords.latitude, position.coords.longitude);
+
+    showLoader();
+    $.get(ffpaffenConfig.baseUrl + '/paffen/' + position.coords.latitude + '/' + position.coords.longitude, function(data) {
+        var btnHolder = document.getElementById("paffen-btn");
+        if (data.ffpaffen) {
+            btnHolder.innerHTML = 'JA, natuurlijk';
+        } else {
+            btnHolder.innerHTML = 'Nee nu ff niet';
+        }
+    });
     gih.innerHTML = "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
 
     var img_url="http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false";
