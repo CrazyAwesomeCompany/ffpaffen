@@ -10,7 +10,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = new Silex\Application();
 $app['debug'] = true;
-$app['apiUrl'] = 'http://api.crazyawesome.nl';
+$app['apiUrl'] = 'http://api.ffpaffen.nl';
 $app->register(new \Silex\Provider\TwigServiceProvider(), array('twig.path' => __DIR__ . '/../app/view'));
 $app->register(new \Guzzle\GuzzleServiceProvider(), array('guzzle.base_url' => $app['apiUrl']));
 $app->register(new \CAC\FfPaffen\Provider\WeatherProvider());
