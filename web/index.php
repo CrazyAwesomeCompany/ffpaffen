@@ -1,5 +1,8 @@
 <?php
 
+use CAC\Component\Location\GeoIpAdapter\NetImpactAdapter;
+
+use CAC\Component\Location\GeoIpAdapter\FreeGeoIpAdapter;
 use CAC\Component\Location\GeoIpLocator;
 
 use CAC\Component\Weather\RainForecast;
@@ -12,18 +15,22 @@ $app->register(new \Silex\Provider\TwigServiceProvider(), array('twig.path' => _
 
 
 $app->get('/', function() use ($app) {
-    $locator = new GeoIpLocator();
+    $locator = new GeoIpLocator(new NetImpactAdapter('g5UTvftII9uZ9kjr'));
 
-    $location = $locator->get($_SERVER['REMOTE_ADDR']);
-    if (!$location->latitude || !$location->longitude) {
-        $location->latitude = 52;
-        $location->longitude = 4;
-        $location->city = "Nederland";
+    //$ip = '83.232.96.217';
+    //$ip = '127.0.0.1';
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $location = $locator->find($ip);
+
+    if (!$location->getLatitude() || !$location->getLongitude()) {
+        $location->setLatitude(52);
+        $location->setLongitude(4);
+        $location->setCity("Nederland");
     }
 
     $forecast = new RainForecast();
 
-    $data = $forecast->get($location->latitude, $location->longitude);
+    $data = $forecast->get($location->getLatitude(), $location->getLongitude());
 
     $ffpaffen = true;
 
