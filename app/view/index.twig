@@ -9,7 +9,6 @@
         {% block stylesheets %}
         <link rel="stylesheet" type="text/css" href="{{ app.request.baseUrl }}/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="{{ app.request.baseUrl }}/css/style.css">
-        <link rel="stylesheet" type="text/css" href="{{ app.request.baseUrl }}/css/bootstrap-responsive.min.css">
         {% endblock %}
         {% endblock %}
     </head>
@@ -34,6 +33,10 @@
         {% else %}
         <p class="btn btn-large btn-inverse">Nee nu ff niet</p>
         {% endif %}
+            <div id="geoinfo">
+                <p id="geoinfoholder"></p>
+                <div id="mapholder"></div>
+            </div>
       </div>
 
       <hr>
@@ -48,8 +51,7 @@
     {% endblock %}
 
     {% block javascripts %}
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="{{ app.request.baseUrl }}/js/bootstrap.min.js"></script>
+    <script src="{{ app.request.baseUrl }}/js/script.js"></script>
     {% endblock %}
     </body>
 </html>
