@@ -27,6 +27,7 @@ class FfPaffenService
 
     private function findCurrentTime(array $data)
     {
+        /*
         $now = time();
         $current = null;
         foreach ($data as $row) {
@@ -34,7 +35,8 @@ class FfPaffenService
                 $current = $row;
                 break;
             }
-        }
+        }*/
+        $current = current($data);
 
         $rainAmount = ltrim($current['amount'], '0');
 
