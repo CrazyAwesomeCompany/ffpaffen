@@ -67,8 +67,10 @@ function showPosition(position)
         var btnHolder = document.getElementById("paffen-btn");
         if (data.ffpaffen) {
             btnHolder.innerHTML = 'JA, natuurlijk';
+            $(btnHolder).removeClass('btn-inverse').addClass('btn-success');
         } else {
             btnHolder.innerHTML = 'Nee nu ff niet';
+            $(btnHolder).removeClass('btn-success').addClass('btn-inverse');
         }
     });
     gih.innerHTML = "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
@@ -97,4 +99,8 @@ function showError(error)
     }
 }
 // request user location
-getLocation();
+$(document).ready(function() {
+    getLocation();
+    window.setInterval(getLocation, 5 * 60 * 1000);
+});
+
