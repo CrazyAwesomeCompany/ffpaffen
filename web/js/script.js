@@ -1,4 +1,5 @@
 var gih = document.getElementById("geoinfoholder");
+var lat, lng;
 
 function getLocation()
 {
@@ -59,11 +60,24 @@ function codeLatLng(lat, lng) {
 function showPosition(position)
 {
     var latlon = position.coords.latitude + "," + position.coords.longitude;
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
 
     codeLatLng(position.coords.latitude, position.coords.longitude);
 
+    getWeatherInfo();
+    window.setInterval(getWeatherInfo, 5 * 60 * 1000);
+
+    gih.innerHTML = "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
+
+    var img_url="http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false";
+    document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"' alt=''>";
+}
+
+function getWeatherInfo()
+{
     showLoader();
-    $.get(ffpaffenConfig.baseUrl + '/paffen/' + position.coords.latitude + '/' + position.coords.longitude, function(data) {
+    $.get(ffpaffenConfig.baseUrl + '/paffen/' + lat + '/' + lng, function(data) {
         var btnHolder = document.getElementById("paffen-btn");
         if (data.ffpaffen) {
             btnHolder.innerHTML = 'JA, natuurlijk';
@@ -73,10 +87,6 @@ function showPosition(position)
             $(btnHolder).removeClass('btn-success').addClass('btn-inverse');
         }
     });
-    gih.innerHTML = "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
-
-    var img_url="http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false";
-    document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"' alt=''>";
 }
 
 function showError(error)
@@ -101,6 +111,5 @@ function showError(error)
 // request user location
 $(document).ready(function() {
     getLocation();
-    window.setInterval(getLocation, 5 * 60 * 1000);
 });
 
