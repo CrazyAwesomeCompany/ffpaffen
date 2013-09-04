@@ -1,5 +1,7 @@
 <?php
 
+use CAC\ApiClient\CAC\SunriseClient;
+
 use CAC\ApiClient\CAC\WeatherClient;
 use CAC\Component\Location\GeoIpAdapter\NetImpactAdapter;
 use CAC\Component\Location\GeoIpAdapter\FreeGeoIpAdapter;
@@ -51,6 +53,13 @@ $app->get('/paffen/{latitude}/{longitude}', function($latitude, $longitude) use 
     return $app->json(array('ffpaffen' => $ffpaffen));
 });
 
+$app->get('/sunrise/{latitude}/{longitude}', function($latitude, $longitude) use ($app) {
+    $client = new SunriseClient($app['guzzle.client']);
+
+    $sunrise = $client->getSunriseByPosition($latitude, $longitude);
+
+    return $app->json($sunrise);
+});
 
 
 $app->run();

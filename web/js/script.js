@@ -66,6 +66,7 @@ function showPosition(position)
     codeLatLng(position.coords.latitude, position.coords.longitude);
 
     getWeatherInfo();
+    getSunrise();
     window.setInterval(getWeatherInfo, 5 * 60 * 1000);
 
     gih.innerHTML = "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
@@ -86,6 +87,13 @@ function getWeatherInfo()
             btnHolder.innerHTML = 'Nee nu ff niet';
             $(btnHolder).removeClass('btn-success').addClass('btn-inverse');
         }
+    });
+}
+
+function getSunrise()
+{
+    $.get(ffpaffenConfig.baseUrl + '/sunrise/' + lat + '/' + lng, function(data) {
+        //console.log(data);
     });
 }
 
